@@ -1,13 +1,18 @@
 {
-    "users" : 
-    [
-        {
-            "id": 1,
-            "name": "Nam",
-            "email": "nam@gmail.com",
-            "phone": "0123456789",
-            "address": "VN"
-    
-        }
-    ]
+  "users": [
+    {
+      "id": 1,
+      "name": "Nam",
+      "email": "nam@gmail.com",
+      "phone": "0123456789",
+      "address": "VN"
+    },
+    {
+      "name": "Hai",
+      "email": "hai@gmail.com",
+      "phone": "0123456789",
+      "address": "Ha Noi",
+      "id": 2
+    }
+  ]
 }
