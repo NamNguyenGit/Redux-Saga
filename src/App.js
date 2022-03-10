@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import AddEditUser from "./pages/AddEditUser";
@@ -13,13 +13,13 @@ function App() {
     <Router>
       <ToastContainer />
       <Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/addUser" component={AddEditUser} />
-        <Route path="/editUser/:id" component={AddEditUser} />
-        <Route path="/userInfo/:id" component={UserInfo} />
-        <Route path="/about" component={About} />
-      </Switch>
+      <Routes>
+        <Route  path="/" element={<Home />} />
+        <Route path="/addUser" element={<AddEditUser />} />
+        <Route path="/editUser/:id" element={<AddEditUser />} />
+        <Route path="/userInfo/:id" element={<UserInfo />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </Router>
   );
 }

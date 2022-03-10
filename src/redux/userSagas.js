@@ -42,7 +42,7 @@ function* onLoadUsersStartAsync() {
 function* onCreateUsersStartAsync({ payload }) {
   try {
     const response = yield call(createUserApi, payload);
-    if (response.status === 200) {
+    if (response.status === 201) {
       yield put(createUserSuccess(response.data));
     }
   } catch (e) {

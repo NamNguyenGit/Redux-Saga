@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { MDBValidation, MDBInput, MDBBtn } from "mdb-react-ui-kit";
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { createUserStart, updateUserStart } from "../redux/actions";
 import { toast } from "react-toastify";
@@ -27,14 +27,14 @@ const AddEditUser = () => {
         dispatch(createUserStart(formValue));
         toast.success("User Added Successfully");
         setTimeout(() => {
-          history.push("/");
+          navigate("/");
         }, 500);
       } else {
         dispatch(updateUserStart({ id, formValue }));
         setEditMode(false);
         toast.success("User Edited Successfully");
         setTimeout(() => {
-          history.push("/");
+          navigate("/");
         }, 500);
       }
     }
@@ -44,7 +44,7 @@ const AddEditUser = () => {
     setFormValue({ ...formValue, [name]: value });
   };
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -125,7 +125,7 @@ const AddEditUser = () => {
           <MDBBtn style={{ marginRight: "10px" }} type="submit">
             {!editMode ? "Add" : "Update"}
           </MDBBtn>
-          <MDBBtn onClick={() => history.push("/")} color="danger">
+          <MDBBtn onClick={() => navigate("/")} color="danger">
             Go Back
           </MDBBtn>
         </div>

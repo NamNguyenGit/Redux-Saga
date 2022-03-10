@@ -25,9 +25,9 @@ const Home = () => {
 
   if (loading) {
     return (
-      <div class="d-flex justify-content-center">
-        <MDBSpinner class="spinner-grow text-danger" style={{ marginTop: "180px"}} role="status">
-          <span class="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center">
+        <MDBSpinner className="spinner-grow text-danger" style={{ marginTop: "180px"}} role="status">
+          <span className="visually-hidden">Loading...</span>
         </MDBSpinner>
       </div>
       

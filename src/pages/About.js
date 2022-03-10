@@ -1,8 +1,12 @@
+import { MDBTypography } from "mdb-react-ui-kit";
+
 const About = () => {
   return (
     <>
-      <div>
-        <h2> About</h2>
+      <div style={{marginTop: "100px"}}>
+        <MDBTypography note noteColor="primary">
+          Nam Nguyen - Redux Saga About Page
+        </MDBTypography>
       </div>
     </>
   );

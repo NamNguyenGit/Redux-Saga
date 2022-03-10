@@ -1,11 +1,11 @@
-import { useHistory, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { MDBBtn } from "mdb-react-ui-kit";
 
 const UserInfo = () => {
   const { users } = useSelector((state) => state.data);
   const { id } = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const singleUser = users.find((user) => user.id === Number(id));
 
   return (
@@ -34,7 +34,7 @@ const UserInfo = () => {
           <p className="col-md-6">{singleUser.address}</p>
           <div className="text-center mt-2">
             <MDBBtn
-              onClick={() => history.push("/")}
+              onClick={() => navigate("/")}
               color="danger"
               className="text-center"
             >
