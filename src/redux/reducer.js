@@ -1,3 +1,4 @@
+import { type } from "@testing-library/user-event/dist/type";
 import * as types from "./actionTypes";
 
 const initialState = {
@@ -13,12 +14,14 @@ const usersReducer = (state = initialState, action) => {
     case types.DELETE_USER_START:
     case types.UPDATE_USER_START:
     case types.SEARCH_USER_START:
+    case types.FILTER_USER_START:
       return {
         ...state,
         loading: true,
       };
     case types.LOAD_USERS_SUCCESS:
     case types.SEARCH_USER_SUCCESS:
+    case types.FILTER_USER_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -41,6 +44,7 @@ const usersReducer = (state = initialState, action) => {
     case types.DELETE_USER_ERROR:
     case types.UPDATE_USER_ERROR:
     case types.SEARCH_USER_ERROR:
+    case types.FILTER_USER_ERROR:
       return {
         ...state,
         loading: false,

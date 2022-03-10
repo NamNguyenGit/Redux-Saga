@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loadUsersStart, deleteUserStart } from "../redux/actions";
+import {
+  loadUsersStart,
+  deleteUserStart,
+  filterUserStart,
+} from "../redux/actions";
 import {
   MDBTable,
   MDBTableHead,
@@ -9,6 +13,10 @@ import {
   MDBIcon,
   MDBTooltip,
   MDBSpinner,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+  MDBBtnGroup,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -44,8 +52,12 @@ const Home = () => {
     }
   };
 
+  const onFilterChange = (value) => {
+    dispatch(filterUserStart(value));
+  };
+
   return (
-    <>
+    <MDBContainer>
       <div className="container" style={{ marginTop: "150px" }}>
         <MDBTable>
           <MDBTableHead dark>
@@ -111,7 +123,27 @@ const Home = () => {
             ))}
         </MDBTable>
       </div>
-    </>
+      <MDBRow>
+        <MDBCol size="8">
+          <h5>Sort By:</h5>
+        </MDBCol>
+        <MDBCol size="4">
+          <h5>Filter By Status:</h5>
+          <MDBBtnGroup>
+            <MDBBtn color="success" onClick={() => onFilterChange("Active")}>
+              Active
+            </MDBBtn>
+            <MDBBtn
+              color="danger"
+              onClick={() => onFilterChange("Inactive")}
+              style={{ marginLeft: "2px" }}
+            >
+              InActive
+            </MDBBtn>
+          </MDBBtnGroup>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
   );
 };
 

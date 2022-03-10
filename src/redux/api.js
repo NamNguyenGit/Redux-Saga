@@ -12,5 +12,8 @@ export const deleteUserApi = async (userId) =>
 export const updateUserApi = async (userId, userInfo) =>
   await axios.put(`http://localhost:5000/users/${userId}`, userInfo);
 
-  export const searchUsersApi = async (query) =>
+export const searchUsersApi = async (query) =>
   await axios.get(`http://localhost:5000/users?q=${query}`);
+
+export const filterUsersApi = async (value) =>
+  await axios.get(`http://localhost:5000/users?status=${value}`);
