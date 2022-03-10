@@ -10,21 +10,34 @@ import {
   MDBTooltip,
   MDBSpinner,
 } from "mdb-react-ui-kit";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.data);
+  const { users, loading, error } = useSelector((state) => state.data);
 
   useEffect(() => {
     dispatch(loadUsersStart());
   }, []);
 
+  useEffect(() => error && toast.error(error), [error]);
+
+  if (loading) {
+    return (
+      <div class="d-flex justify-content-center">
+        <MDBSpinner class="spinner-grow text-danger" style={{ marginTop: "180px"}} role="status">
+          <span class="visually-hidden">Loading...</span>
+        </MDBSpinner>
+      </div>
+      
+    );
+  }
+
   const handleDelete = (id) => {
-    if(window.confirm(`Are you sure to delete that user?`)) {
-      dispatch(deleteUserStart(id))
-      toast.success("User Delete Successfully")
+    if (window.confirm(`Are you sure to delete that user?`)) {
+      dispatch(deleteUserStart(id));
+      toast.success("User Delete Successfully");
     }
   };
 
@@ -68,26 +81,25 @@ const Home = () => {
                       </MDBTooltip>
                     </MDBBtn>{" "}
                     <Link to={`/editUser/${item.id}`}>
-                    <MDBTooltip title="Edit" tag="a">
+                      <MDBTooltip title="Edit" tag="a">
                         <MDBIcon
                           fas
                           icon="pen"
-                          style={{ color: "#55acee", marginBottom: '10px' }}
+                          style={{ color: "#55acee", marginBottom: "10px" }}
                           size="lg"
                         />
                       </MDBTooltip>
                     </Link>{" "}
                     <Link to={`/userInfo/${item.id}`}>
-                    <MDBTooltip title="View" tag="a">
+                      <MDBTooltip title="View" tag="a">
                         <MDBIcon
                           fas
                           icon="eye"
-                          style={{ color: "#3b5998", marginBottom: '10px' }}
+                          style={{ color: "#3b5998", marginBottom: "10px" }}
                           size="lg"
                         />
                       </MDBTooltip>
                     </Link>{" "}
-                    
                   </td>
                 </tr>
               </MDBTableBody>

@@ -53,6 +53,9 @@ const AddEditUser = () => {
       setEditMode(true);
       const singleUser = users.find((item) => item.id === Number(id));
       setFormValue({ ...singleUser });
+    } else {
+      setEditMode(false)
+      setFormValue({...InitialState})
     }
   }, [id]);
 
@@ -118,7 +121,7 @@ const AddEditUser = () => {
           invalid
         />
         <br />
-        <div className="col-12">
+        <div className="col-12 text-center">
           <MDBBtn style={{ marginRight: "10px" }} type="submit">
             {!editMode ? "Add" : "Update"}
           </MDBBtn>
