@@ -17,3 +17,6 @@ export const searchUsersApi = async (query) =>
 
 export const filterUsersApi = async (value) =>
   await axios.get(`http://localhost:5000/users?status=${value}`);
+
+export const sortUsersApi = async (value) =>
+  await axios.get(`http://localhost:5000/users?_sort=${value}&_order=asc`);
