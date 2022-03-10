@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchUserStart } from "../redux/actions";
+import { loadUsersStart, searchUserStart } from "../redux/actions";
 import {
   MDBContainer,
   MDBNavbar,
@@ -82,6 +82,14 @@ const Header = () => {
               />
               <MDBBtn color="dark" type="submit">
                 Search
+              </MDBBtn>
+              <MDBBtn
+                color="info"
+                className="mx-2"
+                type="submit"
+                onClick={() => dispatch(loadUsersStart())}
+              >
+                Reset
               </MDBBtn>
             </form>
           </MDBCollapse>
