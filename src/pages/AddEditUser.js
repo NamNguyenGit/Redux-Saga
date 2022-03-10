@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { MDBValidation, MDBInput, MDBBtn } from "mdb-react-ui-kit";
 import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { createUserStart } from "../redux/actions";
+import { createUserStart, updateUserStart } from "../redux/actions";
 import { toast } from "react-toastify";
 
 const InitialState = {
@@ -17,17 +17,26 @@ const AddEditUser = () => {
   const { users } = useSelector((state) => state.data);
 
   const [formValue, setFormValue] = useState(InitialState);
-  const [editMode, setEditMode] = useState(false)
+  const [editMode, setEditMode] = useState(false);
   const { name, email, phone, address } = formValue;
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name && email && phone && address) {
-      dispatch(createUserStart(formValue));
-      toast.success("User Added Successfully");
-      setTimeout(() => {
-        history.push("/");
-      }, 500);
+      if (!editMode) {
+        dispatch(createUserStart(formValue));
+        toast.success("User Added Successfully");
+        setTimeout(() => {
+          history.push("/");
+        }, 500);
+      } else {
+        dispatch(updateUserStart({ id, formValue }));
+        setEditMode(false);
+        toast.success("User Edited Successfully");
+        setTimeout(() => {
+          history.push("/");
+        }, 500);
+      }
     }
   };
   const onInputChange = (e) => {
@@ -40,9 +49,8 @@ const AddEditUser = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    
     if (id) {
-      setEditMode(true)
+      setEditMode(true);
       const singleUser = users.find((item) => item.id === Number(id));
       setFormValue({ ...singleUser });
     }
@@ -55,7 +63,9 @@ const AddEditUser = () => {
       noValidate
       onSubmit={handleSubmit}
     >
-      <p className="fs-2 fw-bold text-center">{!editMode ? "Add User Detail" : "Edit User Detail"}</p>
+      <p className="fs-2 fw-bold text-center">
+        {!editMode ? "Add User Detail" : "Edit User Detail"}
+      </p>
       <div
         style={{
           margin: "auto",
@@ -110,7 +120,7 @@ const AddEditUser = () => {
         <br />
         <div className="col-12">
           <MDBBtn style={{ marginRight: "10px" }} type="submit">
-           {!editMode ? "Add" : "Update"}
+            {!editMode ? "Add" : "Update"}
           </MDBBtn>
           <MDBBtn onClick={() => history.push("/")} color="danger">
             Go Back

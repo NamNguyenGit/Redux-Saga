@@ -16,9 +16,16 @@ import {
   createUserSuccess,
   deleteUserError,
   deleteUserSuccess,
+  updateUserError,
+  updateUserSuccess,
 } from "./actions";
 import * as types from "./actionTypes";
-import { loadUsersApi, createUserApi, deleteUserApi } from "./api";
+import {
+  loadUsersApi,
+  createUserApi,
+  deleteUserApi,
+  updateUserApi,
+} from "./api";
 
 function* onLoadUsersStartAsync() {
   try {
@@ -55,6 +62,17 @@ function* onDeleteUsersStartAsync(userId) {
   }
 }
 
+function* onUpdateUsersStartAsync({ payload: { id, formValue } }) {
+  try {
+    const response = yield call(updateUserApi, id, formValue);
+    if (response.status === 200) {
+      yield put(updateUserSuccess());
+    }
+  } catch (e) {
+    yield put(updateUserError(e.response.data));
+  }
+}
+
 function* onLoadUsers() {
   yield takeEvery(types.LOAD_USERS_START, onLoadUsersStartAsync);
 }
@@ -63,14 +81,23 @@ function* onCreateUsers() {
   yield takeLatest(types.CREATE_USER_START, onCreateUsersStartAsync);
 }
 
+function* onUpdateUsers() {
+  yield takeLatest(types.UPDATE_USER_START, onUpdateUsersStartAsync);
+}
+
 function* onDeleteUsers() {
   while (true) {
-    const {payload: userId} = yield take(types.DELETE_USER_START);
-    yield call(onDeleteUsersStartAsync, userId)
+    const { payload: userId } = yield take(types.DELETE_USER_START);
+    yield call(onDeleteUsersStartAsync, userId);
   }
 }
 
-const userSagas = [fork(onLoadUsers), fork(onCreateUsers), fork(onDeleteUsers)];
+const userSagas = [
+  fork(onLoadUsers),
+  fork(onCreateUsers),
+  fork(onDeleteUsers),
+  fork(onUpdateUsers),
+];
 
 export default function* rootSaga() {
   yield all([...userSagas]);
