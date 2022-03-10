@@ -5,28 +5,40 @@
       "name": "Nam",
       "email": "nam@gmail.com",
       "phone": "0123456789",
-      "address": "Ha Noi"
+      "address": "Ha Noi",
+      "status": "Active"
     },
     {
       "name": "Hai",
       "email": "hai@gmail.com",
       "phone": "0123456789",
       "address": "Ha Noi",
-      "id": 2
+      "id": 2,
+      "status": "Active"
     },
     {
       "name": "Long",
       "email": "long@gmail.com",
       "phone": "0123456798",
       "address": "Ha Noi",
-      "id": 3
+      "id": 3,
+      "status": "Inactive"
     },
     {
       "name": "Can",
       "email": "can@gmail.com",
       "phone": "0123456789",
       "address": "Bac Ninh",
-      "id": 4
+      "id": 4,
+      "status": "Inactive"
+    },
+    {
+      "name": "Status",
+      "email": "status@gmail.com",
+      "phone": "01321546",
+      "address": "Ha noi",
+      "status": "Active",
+      "id": 5
     }
   ]
 }

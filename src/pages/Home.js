@@ -26,11 +26,14 @@ const Home = () => {
   if (loading) {
     return (
       <div className="d-flex justify-content-center">
-        <MDBSpinner className="spinner-grow text-danger" style={{ marginTop: "180px"}} role="status">
+        <MDBSpinner
+          className="spinner-grow text-danger"
+          style={{ marginTop: "180px" }}
+          role="status"
+        >
           <span className="visually-hidden">Loading...</span>
         </MDBSpinner>
       </div>
-      
     );
   }
 
@@ -52,6 +55,7 @@ const Home = () => {
               <th scope="col">Email</th>
               <th scope="col">Phone</th>
               <th scope="col">Address</th>
+              <th scope="col">Status</th>
               <th scope="col">Actions</th>
             </tr>
           </MDBTableHead>
@@ -64,6 +68,7 @@ const Home = () => {
                   <td>{item.email}</td>
                   <td>{item.phone}</td>
                   <td>{item.address}</td>
+                  <td>{item.status}</td>
                   <td>
                     <MDBBtn
                       className="m-1"

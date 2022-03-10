@@ -10,7 +10,19 @@ const InitialState = {
   email: "",
   phone: "",
   address: "",
+  status: "",
 };
+
+const options = [
+  {
+    label: "Active",
+    value: "active",
+  },
+  {
+    label: "Inactive",
+    value: "inactive",
+  },
+];
 
 const AddEditUser = () => {
   const dispatch = useDispatch();
@@ -18,7 +30,7 @@ const AddEditUser = () => {
 
   const [formValue, setFormValue] = useState(InitialState);
   const [editMode, setEditMode] = useState(false);
-  const { name, email, phone, address } = formValue;
+  const { name, email, phone, address, status } = formValue;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,10 +66,14 @@ const AddEditUser = () => {
       const singleUser = users.find((item) => item.id === Number(id));
       setFormValue({ ...singleUser });
     } else {
-      setEditMode(false)
-      setFormValue({...InitialState})
+      setEditMode(false);
+      setFormValue({ ...InitialState });
     }
   }, [id]);
+
+  const onDropChange = (e) => {
+    setFormValue({ ...formValue, status: e.target.value });
+  };
 
   return (
     <MDBValidation
@@ -120,6 +136,22 @@ const AddEditUser = () => {
           validation="Please provide a address"
           invalid
         />
+        <br />
+        <select
+          style={{ width: "100%", borderRadius: "4px", height: "35px" }}
+          onChange={onDropChange}
+        >
+          <option>Please Select Status</option>
+          {options.map((option) => (
+            <option
+              value={option.label || ""}
+              selected={option.label === status ? true : false}
+            >
+              {option.label}{" "}
+            </option>
+          ))}
+        </select>
+        <br />
         <br />
         <div className="col-12 text-center">
           <MDBBtn style={{ marginRight: "10px" }} type="submit">
