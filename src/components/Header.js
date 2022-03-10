@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { searchUserStart } from "../redux/actions";
 import {
   MDBContainer,
   MDBNavbar,
@@ -9,11 +11,23 @@ import {
   MDBNavbarLink,
   MDBCollapse,
   MDBNavbarItem,
+  MDBBtn,
 } from "mdb-react-ui-kit";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const [keywords, setKeywords] = useState("");
   const [showBasic, setShowBasic] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(searchUserStart(keywords));
+    setKeywords("");
+  };
+
   return (
     <>
       <MDBNavbar expand="lg" light bgColor="primary">
@@ -57,6 +71,19 @@ const Header = () => {
                 </MDBNavbarLink>
               </MDBNavbarItem>
             </MDBNavbarNav>
+
+            <form onSubmit={handleSubmit} className="d-flex input-group w-auto">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Search Name..."
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+              />
+              <MDBBtn color="dark" type="submit">
+                Search
+              </MDBBtn>
+            </form>
           </MDBCollapse>
         </MDBContainer>
       </MDBNavbar>

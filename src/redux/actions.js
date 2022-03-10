@@ -62,12 +62,12 @@ export const searchUserStart = (query) => ({
   payload: query,
 });
 
-export const searchUserError = (users) => ({
+export const searchUserSuccess = (users) => ({
   type: types.SEARCH_USER_SUCCESS,
   payload: users,
 });
 
-export const searchUserSuccess = (error) => ({
+export const searchUserError = (error) => ({
   type: types.SEARCH_USER_ERROR,
   payload: error,
 });

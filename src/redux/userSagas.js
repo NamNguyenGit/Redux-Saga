@@ -80,7 +80,7 @@ function* onSearchUsersStartAsync({ payload: query }) {
   try {
     const response = yield call(searchUsersApi,query);
     if (response.status === 200) {
-      yield put(searchUserSuccess());
+      yield put(searchUserSuccess(response.data));
     }
   } catch (e) {
     yield put(searchUserError(e.response.data));
