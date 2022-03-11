@@ -36,12 +36,12 @@ import {
   sortUsersApi,
 } from "./api";
 
-function* onLoadUsersStartAsync() {
+function* onLoadUsersStartAsync({payload: {start, end, currentPage}}) {
   try {
-    const response = yield call(loadUsersApi);
+    const response = yield call(loadUsersApi, start , end);
     if (response.status === 200) {
       yield delay(500);
-      yield put(loadUsersSuccess(response.data));
+      yield put(loadUsersSuccess({users: response.data, currentPage}));
     }
   } catch (e) {
     yield put(loadUsersError(e.response.data));

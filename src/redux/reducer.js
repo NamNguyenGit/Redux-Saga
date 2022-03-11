@@ -5,6 +5,10 @@ const initialState = {
   users: [],
   loading: false,
   error: null,
+  pageLimit: 4,
+  currentPage: 0,
+  paginationMode: true
+
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -21,6 +25,13 @@ const usersReducer = (state = initialState, action) => {
         loading: true,
       };
     case types.LOAD_USERS_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        users: action.payload.users,
+        currentPage: state.currentPage + action.payload.currentPage,
+
+      }
     case types.SEARCH_USER_SUCCESS:
     case types.FILTER_USER_SUCCESS:
     case types.SORT_USER_SUCCESS:
@@ -28,6 +39,7 @@ const usersReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         users: action.payload,
+        paginationMode: false
       };
     case types.CREATE_USER_SUCCESS:
     case types.UPDATE_USER_SUCCESS:

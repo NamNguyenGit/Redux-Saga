@@ -25,12 +25,12 @@ import { sortUsersApi } from "../redux/api";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { users, loading, error } = useSelector((state) => state.data);
+  const { users, loading, error, pageLimit, currentPage, paginationMode } = useSelector((state) => state.data);
   const sortOption = ["Name", "Email", "Phone", "Address", "Status"];
   const [sortValue, setSortValue] = useState("");
 
   useEffect(() => {
-    dispatch(loadUsersStart());
+    dispatch(loadUsersStart({start:0, end: 4, currentPage: 0}));
   }, []);
 
   useEffect(() => error && toast.error(error), [error]);
