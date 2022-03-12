@@ -59,7 +59,7 @@ const Header = () => {
               <MDBNavbarItem>
                 <MDBNavbarLink className="nav-link">
                   <NavLink to="/addUser" className="text-white">
-                    AddUser
+                    AddUsers
                   </NavLink>
                 </MDBNavbarLink>
               </MDBNavbarItem>
