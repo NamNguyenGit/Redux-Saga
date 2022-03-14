@@ -18,6 +18,9 @@ import {
   MDBRow,
   MDBCol,
   MDBBtnGroup,
+  MDBPagination,
+  MDBPaginationItem,
+  MDBPaginationLink,
 } from "mdb-react-ui-kit";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -25,12 +28,13 @@ import { sortUsersApi } from "../redux/api";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const { users, loading, error, pageLimit, currentPage, paginationMode } = useSelector((state) => state.data);
+  const { users, loading, error, pageLimit, currentPage, paginationMode } =
+    useSelector((state) => state.data);
   const sortOption = ["Name", "Email", "Phone", "Address", "Status"];
   const [sortValue, setSortValue] = useState("");
 
   useEffect(() => {
-    dispatch(loadUsersStart({start:0, end: 4, currentPage: 0}));
+    dispatch(loadUsersStart({ start: 0, end: 4, currentPage: 0 }));
   }, []);
 
   useEffect(() => error && toast.error(error), [error]);
@@ -73,6 +77,82 @@ const Home = () => {
     } else {
       dispatch(loadUsersStart());
       setSortValue("");
+    }
+  };
+
+  const renderPagination = () => {
+    if (currentPage === 0) {
+      return (
+        <MDBPagination className="mb-0">
+          <MDBPaginationItem>
+            <MDBPaginationLink>1</MDBPaginationLink>
+          </MDBPaginationItem>
+          <MDBPaginationItem>
+            <MDBBtn
+              onClick={() =>
+                dispatch(loadUsersStart({ start: 4, end: 8, currentPage: 1 }))
+              }
+            >
+              Next
+            </MDBBtn>
+          </MDBPaginationItem>
+        </MDBPagination>
+      );
+    } else if (currentPage < pageLimit - 1 && users.length === pageLimit) {
+      return (
+        <MDBPagination className="mb-0">
+          <MDBPaginationItem>
+            <MDBBtn
+              onClick={() =>
+                dispatch(
+                  loadUsersStart({
+                    start: (currentPage - 1) * 4,
+                    end: currentPage * 4,
+                    currentPage: -1,
+                  })
+                )
+              }
+            >
+              Prev
+            </MDBBtn>
+          </MDBPaginationItem>
+          <MDBPaginationItem>
+            <MDBPaginationLink>{currentPage + 1}</MDBPaginationLink>
+          </MDBPaginationItem>
+          <MDBPaginationItem>
+            <MDBBtn
+              onClick={() =>
+                dispatch(
+                  loadUsersStart({
+                    start: (currentPage + 1) * 4,
+                    end: (currentPage + 2) * 4,
+                    currentPage: 1,
+                  })
+                )
+              }
+            >
+              Next
+            </MDBBtn>
+          </MDBPaginationItem>
+        </MDBPagination>
+      );
+    } else {
+      return (
+        <MDBPagination className="mb-0">
+          <MDBPaginationItem>
+            <MDBBtn
+              onClick={() =>
+                dispatch(loadUsersStart({ start: 4, end: 8, currentPage: 1 }))
+              }
+            >
+              Prev
+            </MDBBtn>
+          </MDBPaginationItem>
+          <MDBPaginationItem>
+            <MDBPaginationLink>{currentPage + 1}</MDBPaginationLink>
+          </MDBPaginationItem>
+        </MDBPagination>
+      );
     }
   };
 
@@ -142,6 +222,16 @@ const Home = () => {
               </MDBTableBody>
             ))}
         </MDBTable>
+        <div
+          style={{
+            margin: "auto",
+            padding: "15px",
+            maxWidth: "200px",
+            alignContent: "center",
+          }}
+        >
+          {renderPagination()}
+        </div>
       </div>
       <MDBRow>
         <MDBCol size="8">
